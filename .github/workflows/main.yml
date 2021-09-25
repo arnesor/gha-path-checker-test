@@ -1,0 +1,17 @@
+name: Integration Test
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Path checks
+        id: pathcheck
+
+        uses: arnesor/gha-path-checker@master
+        with:
+          allow_non_ascii: false
+
+      - name: Check outputs
+        run: |
+          test "${{ steps.patcheck.outputs.errors }}" == "2"
